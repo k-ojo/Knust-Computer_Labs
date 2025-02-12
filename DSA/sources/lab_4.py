@@ -13,7 +13,6 @@ class Tree:
     def insert(self, data):
         if self.root == None:
             self.root = bNode(data)
-
         else:
             self.insert_builtin(self.root, data)
         
@@ -33,26 +32,44 @@ class Tree:
     def inorder_builtin(self, node):
         if node:
             self.inorder_builtin(node.left)
-            print(f"\tData at node: {self.root.data}\n")
+            print(f"\tData at node: {node.data}")
             self.inorder_builtin(node.right)
         return
 
     def inorder(self):
         self.inorder_builtin(self.root)
-
     
+    def preorder_builtin(self, node):
+        if node:
+            print(f"\tData at node: {node.data}")
+            self.preorder_builtin(node.left)
+            self.preorder_builtin(node.right)
+        return
+
     def preorder(self):
-        if self.root == None:
-            return
-        print(f"\tData at node: {self.root.data}\n")
-        if self.root.get_left():
-            self.root.left.inorder_builtin()
-        if self.root.get_right():
-            self.root.right.inorder()
+        self.preorder_builtin(self.root)
+
+    def postorder_builtin(self, node):
+        if node:
+            self.postorder_builtin(node.left)
+            self.postorder_builtin(node.right)
+            print(f"\tData at node: {node.data}")
+        return
+
+    def postorder(self):
+        self.postorder_builtin(self.root)
+
 
 if __name__ == "__main__":
     t1 = Tree()
-    t1.insert("This is me")
-    t1.insert("This is me")
-    t1.insert("This is me")
+    t1.insert(70)
+    t1.insert(89)
+    t1.insert(5)
+    t1.insert(80)
+    t1.insert(51)
+    t1.insert(21)
+
     t1.inorder()
+    t1.postorder()
+    t1.preorder()
+    print(t1.root.data)
