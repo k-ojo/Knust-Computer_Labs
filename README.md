@@ -1,1 +1,1 @@
-# Knust-Computer_Labs
+This is lab repositiry for Computer Labs
