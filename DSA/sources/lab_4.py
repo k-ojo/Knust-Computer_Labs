@@ -59,7 +59,6 @@ class Tree:
     def postorder(self):
         self.postorder_builtin(self.root)
 
-
 if __name__ == "__main__":
     t1 = Tree()
     t1.insert(70)
