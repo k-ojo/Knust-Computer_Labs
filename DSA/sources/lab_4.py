@@ -6,16 +6,17 @@ class bNode:
         self.right = None
         self.data = data
 
+
 class Tree:
     def __init__(self, root=None):
         self.root = root
-    
+
     def insert(self, data):
         if self.root == None:
             self.root = bNode(data)
         else:
             self.insert_builtin(self.root, data)
-        
+
     def insert_builtin(self, current, data):
 
         if current.data >= data:
@@ -38,7 +39,7 @@ class Tree:
 
     def inorder(self):
         self.inorder_builtin(self.root)
-    
+
     def preorder_builtin(self, node):
         if node:
             print(f"\tData at node: {node.data}")
@@ -59,6 +60,16 @@ class Tree:
     def postorder(self):
         self.postorder_builtin(self.root)
 
+    def height(self):
+        return self.height_builtin(self.root)
+
+    def height_builtin(self, node):
+        if node is None:
+            return -1
+        a = self.height_builtin(node.left)
+        b = self.height_builtin(node.right)
+        return max(a, b) + 1
+
 if __name__ == "__main__":
     t1 = Tree()
     t1.insert(70)
@@ -71,4 +82,4 @@ if __name__ == "__main__":
     t1.inorder()
     t1.postorder()
     t1.preorder()
-    print(t1.root.data)
+    print(t1.height())
