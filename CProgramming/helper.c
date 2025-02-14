@@ -9,7 +9,7 @@ int page_init(pages *p, char *str, int num)
 
 int show_page(pages *p)
 {
-    printf("%s", p->str);
+    printf("%s\n", p->str);
     return (0);
 }
 
@@ -47,4 +47,25 @@ void delete_flavours(flavours *f){
     }
     free((f->container));
     free(f);
+}
+
+void delete_flavour(flavours *f, char *name){
+    int index = 0, key = 0;
+    while (index < f->size)
+    {
+        /* code */
+        if (f->container[index]->name == name){
+            key = 1;
+            break;
+        }
+        index++;
+    }
+    while (index < f->size - 1){
+        f->container[index] = f->container[index];
+        index += 1;
+    }
+
+    if (key){
+        free(f->container[f->size--]); //free last element and decrease size
+    }
 }
