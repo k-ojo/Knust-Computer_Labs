@@ -1,10 +1,15 @@
 #include "main.h"
 
-int page_init(pages *p, char *str, int num)
+pages *page_init(char *str, int num)
 {
+    pages *p = (pages *)malloc(sizeof(pages));
     p->str = str;
     p->num = num;
-    return (0);
+    return (p);
+}
+
+void delete_page(pages *p){
+    free(p);
 }
 
 int show_page(pages *p)
@@ -25,7 +30,9 @@ int add_flavour(char *str, flavours *f)
             return (-1);
     }
 
-    f->container[++f->size] = tmp;
+    f->container[f->size] = tmp;
+    f->size++;
+    
     return (0);
 }
 

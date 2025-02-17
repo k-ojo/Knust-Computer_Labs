@@ -48,10 +48,11 @@ typedef struct{
     char *str;
 }pages;
 
-int page_init(pages *p, char *str, int num);
+pages *page_init(char *str, int num);
 int show_page(pages *p);
 int add_flavour(char *str, flavours *f);
 flavours *init_flavours(size_t s);
 void delete_flavours(flavours *f);
+void delete_flavour(flavours *f, char *name);
 
 #endif
