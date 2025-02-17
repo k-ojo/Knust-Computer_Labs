@@ -1,3 +1,4 @@
 *.exe
 *.elf
 *.out
+main

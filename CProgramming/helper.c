@@ -1,30 +1,18 @@
 #include "main.h"
 
-pages *page_init(char *str, int num)
-{
-    pages *p = (pages *)malloc(sizeof(pages));
-    p->str = (char *)malloc(strlen(str) * sizeof(char));
-    memcpy(p->str, str, strlen(str));
-    p->num = num;
-    return (p);
-}
+const char *type[] = { "Small", "Large"};
 
-void delete_page(pages *p){
-    free(p);
-}
-
-int show_page(pages *p)
-{
-    printf("%s\n", p->str);
-    return (0);
-}
-
-int add_flavour(char *str, flavours *f)
+int add_flavour(char *str, flavours *f, float small, float large)
 {
     flavour *tmp = (flavour *)malloc(sizeof(flavour));
     tmp->key = f->size + 1;
     tmp->name = (char *)malloc(sizeof(char) *(sizeof(str) + 1));
+    
     memcpy(tmp->name, str, strlen(str));
+
+    //initialize type
+    tmp->prices[0] = small;
+    tmp->prices[1] = large;
 
     if (f->capacity <= f->size){
         f->container = (flavour **)realloc(f->container, f->capacity * 2 * sizeof(flavour *));
@@ -32,8 +20,8 @@ int add_flavour(char *str, flavours *f)
             return (-1);
         
     }
-
     f->container[f->size] = tmp;
+
     f->size++;
     
     return (0);
