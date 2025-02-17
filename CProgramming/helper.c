@@ -3,7 +3,8 @@
 pages *page_init(char *str, int num)
 {
     pages *p = (pages *)malloc(sizeof(pages));
-    p->str = str;
+    p->str = (char *)malloc(strlen(str) * sizeof(char));
+    memcpy(p->str, str, strlen(str));
     p->num = num;
     return (p);
 }
@@ -22,12 +23,14 @@ int add_flavour(char *str, flavours *f)
 {
     flavour *tmp = (flavour *)malloc(sizeof(flavour));
     tmp->key = f->size + 1;
-    tmp->name = (char *)malloc(sizeof(str) + 1);
+    tmp->name = (char *)malloc(sizeof(char) *(sizeof(str) + 1));
+    memcpy(tmp->name, str, strlen(str));
 
     if (f->capacity <= f->size){
         f->container = (flavour **)realloc(f->container, f->capacity * 2 * sizeof(flavour *));
         if (f->container == NULL)
             return (-1);
+        
     }
 
     f->container[f->size] = tmp;
@@ -42,6 +45,17 @@ flavours *init_flavours(size_t s){
     f->size = 0;
     f->capacity = s;
     return (f);
+}
+
+char *get_flavours(char *buf, flavours *f){
+    int len = 0, index = 1;
+    char *ptr = buf;
+    while(index < f->size){
+        len = sprintf(ptr, "%d - %s\n", index, f->container[index- 1]->name);
+        ptr += len;
+        index++;
+    }
+    return (buf);    
 }
 
 void delete_flavours(flavours *f){

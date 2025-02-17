@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <stddef.h>
 #include <sys/types.h>
+#include <string.h>
 
 typedef enum{
     
@@ -54,5 +55,6 @@ int add_flavour(char *str, flavours *f);
 flavours *init_flavours(size_t s);
 void delete_flavours(flavours *f);
 void delete_flavour(flavours *f, char *name);
+char *get_flavours(char *buf, flavours *f);
 
 #endif
