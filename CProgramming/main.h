@@ -52,14 +52,17 @@ typedef struct{
     char *str;
 }pages;
 
-pages *page_init(char *str, int num);
-int show_page(pages *p);
+//helper.c
 int add_flavour(char *str, flavours *f, float, float);
 flavours *init_flavours(size_t s);
 void delete_flavours(flavours *f);
 void delete_flavour(flavours *f, char *name);
 char *get_flavours(char *buf, flavours *f);
 
+//page.c
+void delete_page(pages *p);
+pages *page_init(char *str, int num);
+int show_page(pages *p);
 void clearConsole();
 
 #endif

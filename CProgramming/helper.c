@@ -38,7 +38,7 @@ flavours *init_flavours(size_t s){
 char *get_flavours(char *buf, flavours *f){
     int len = 0, index = 1;
     char *ptr = buf;
-    while(index < f->size){
+    while(index <= f->size){
         len = sprintf(ptr, "%d - %s\n", index, f->container[index- 1]->name);
         ptr += len;
         index++;
@@ -59,18 +59,23 @@ void delete_flavours(flavours *f){
 }
 
 void delete_flavour(flavours *f, char *name){
-    int index = 0, key = 0;
+    int n, index = 0, key = 0;
     while (index < f->size)
     {
         /* code */
-        if (f->container[index]->name == name){
-            key = 1;
+        if (strcasecmp(f->container[index]->name, name)){
+            key = index;
+            printf("%i\n", index);
+            scanf("%d", &n);
             break;
         }
+        //printf("Break\n");
+        //scanf("%d", &n);
+
         index++;
     }
-    while (index < f->size - 1){
-        f->container[index] = f->container[index];
+    while (index < (f->size - 1)){
+        f->container[index] = f->container[index + 1];
         index += 1;
     }
 
