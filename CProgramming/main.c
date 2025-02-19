@@ -14,7 +14,8 @@ int main(void){
     add_flavour("Vanilla", flavors, smallVanilla, largeVanilla);
     add_flavour("Strawberry", flavors, smallVanilla, largeVanilla);
     add_flavour("Chocolate", flavors, smallVanilla, largeVanilla);
-    //delete_flavour(flavors, "Chocolate");
+    delete_flavour(flavors, "Chocolate");
+    add_flavour("Chocolate", flavors, smallVanilla, largeVanilla);
 
 
     p1 = page_init("WELCOME TO FIIFI’S ICE CREAM SHOP\n\t1. Order\n\t2. Enqueries", 1);
@@ -50,5 +51,6 @@ int main(void){
     }while(order.order > 0);
 
     printf("%s\n", flavors->container[3]->name);
+    delete_flavours(flavors);
     return (0);
 }

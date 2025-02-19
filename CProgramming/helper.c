@@ -59,19 +59,14 @@ void delete_flavours(flavours *f){
 }
 
 void delete_flavour(flavours *f, char *name){
-    int n, index = 0, key = 0;
+    int n = 0, index = 0, key = 0;
     while (index < f->size)
     {
-        /* code */
-        if (strcasecmp(f->container[index]->name, name)){
+        n = strcasecmp(f->container[index]->name, name);
+        if (n == 0){
             key = index;
-            printf("%i\n", index);
-            scanf("%d", &n);
             break;
         }
-        //printf("Break\n");
-        //scanf("%d", &n);
-
         index++;
     }
     while (index < (f->size - 1)){
@@ -80,6 +75,6 @@ void delete_flavour(flavours *f, char *name){
     }
 
     if (key){
-        free(f->container[f->size--]); //free last element and decrease size
+        free(f->container[--(f->size)]); //free last element and decrease size
     }
 }
