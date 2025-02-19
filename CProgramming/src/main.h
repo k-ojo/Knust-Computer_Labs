@@ -6,6 +6,7 @@
 #include <stddef.h>
 #include <sys/types.h>
 #include <string.h>
+#include <errno.h>
 
 #define MAX_BUF_LENGTH 200
 

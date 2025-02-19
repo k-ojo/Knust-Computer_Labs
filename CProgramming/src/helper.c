@@ -6,19 +6,19 @@ int add_flavour(char *str, flavours *f, float small, float large)
 {
     flavour *tmp = (flavour *)malloc(sizeof(flavour));
     tmp->key = f->size + 1;
-    tmp->name = (char *)malloc(sizeof(char) *(sizeof(str) + 1));
+    tmp->name = (char *)malloc((strlen(str) + 1));
     
-    memcpy(tmp->name, str, strlen(str));
+    memcpy(tmp->name, str, strlen(str) + 1);
 
     //initialize type
     tmp->prices[0] = small;
     tmp->prices[1] = large;
 
     if (f->capacity <= f->size){
-        f->container = (flavour **)realloc(f->container, f->capacity * 2 * sizeof(flavour *));
+        f->capacity *= 2;
+        f->container = (flavour **)realloc(f->container, f->capacity * sizeof(flavour *));
         if (f->container == NULL)
             return (-1);
-        
     }
     f->container[f->size] = tmp;
 
@@ -47,16 +47,18 @@ char *get_flavours(char *buf, flavours *f){
 }
 
 void delete_flavours(flavours *f){
-    int index = f->size;
-    while (index >= 0)
+    int index = 0;
+    while (index < f->size)
     {
         /* code */
+        free(f->container[index]->name);
         free(f->container[index]);
-        index--;
+        index++;
     }
     free((f->container));
     free(f);
 }
+
 
 void delete_flavour(flavours *f, char *name){
     int n = 0, index = 0, key = 0;

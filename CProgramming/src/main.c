@@ -14,8 +14,8 @@ int main(void){
     add_flavour("Vanilla", flavors, smallVanilla, largeVanilla);
     add_flavour("Strawberry", flavors, smallVanilla, largeVanilla);
     add_flavour("Chocolate", flavors, smallVanilla, largeVanilla);
-    delete_flavour(flavors, "Chocolate");
-    add_flavour("Chocolate", flavors, smallVanilla, largeVanilla);
+    //delete_flavour(flavors, "Chocolate");
+    //add_flavour("Chocolate", flavors, smallVanilla, largeVanilla);
 
 
     p1 = page_init("WELCOME TO FIIFI’S ICE CREAM SHOP\n\t1. Order\n\t2. Enqueries", 1);
@@ -26,31 +26,41 @@ int main(void){
     do{
         clearConsole();
         show_page(p1);
-        scanf("%d", &order.enquire);
+        if (scanf("%d", &order.enquire) == EOF){
+            exit(errno);
+        }
         if (order.enquire == 2){
             show_page(p3);
-            exit(99);
+            exit(errno);
         }
         else{
             clearConsole();
             printf("Order Something\t\t\n");
             show_page(p2);
-            scanf("%d", &order.flavour);
+            if (scanf("%d", &order.flavour) == EOF){
+                exit(errno);
+            }
             clearConsole();
             show_page(p4);
-            scanf("%d", &order.size);
+            if (scanf("%d", &order.size) == EOF)
+                exit (errno);
             clearConsole();
-            if ((order.size == 0 || order.size == 1) && (order.flavour > 0 && order.flavour < 7))
-                printf("Name of Flavour: %s\nType: %s\n", flavors->container[order.flavour]->name, type[order.size - 1]);
+            if ((order.size == 1 || order.size == 2) && (order.flavour > 0 && order.flavour < flavors->size))
+                printf("\t\tFlavour: %s\n\t\tType: %s\n", flavors->container[order.flavour]->name, type[order.size - 1]);
 
             else{
                 printf("Ooops!\nYou did not enter a valid Flavour or size.\nTry again!\n");
-                exit(99);
+                exit(errno);
             }
         }
     }while(order.order > 0);
 
-    printf("%s\n", flavors->container[3]->name);
+    delete_page(p1);
+    delete_page(p2);
+    delete_page(p3);
+    delete_page(p4);
+    
     delete_flavours(flavors);
+
     return (0);
 }

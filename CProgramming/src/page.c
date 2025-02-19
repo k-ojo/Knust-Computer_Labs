@@ -17,6 +17,7 @@ pages *page_init(char *str, int num)
 }
 
 void delete_page(pages *p){
+    free(p->str);
     free(p);
 }
 
