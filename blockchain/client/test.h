@@ -2,13 +2,14 @@
 #define _TEST_
 
 #include <stdint.h>
+#include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include <arpa/inet.h>
 
-#define PORT 8080
+#define PORT 80
 #define HASH_SIZE 32
 
 typedef struct{
