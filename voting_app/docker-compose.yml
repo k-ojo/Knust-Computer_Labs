@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  backend:
+    build: ./Backend
+    ports:
+      - "8545:8545"  # Hardhat network for blockchain
+    volumes:
+      - ./Backend:/app
+    working_dir: /app
+    command: npx hardhat node
+    networks:
+      - app-network
+
+  frontend:
+    build: ./Frontend
+    ports:
+      - "3000:3000"  # React app port
+    volumes:
+      - ./Frontend:/app
+    working_dir: /app
+    command: npm start
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

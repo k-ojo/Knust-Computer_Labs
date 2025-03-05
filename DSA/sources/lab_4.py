@@ -83,3 +83,4 @@ if __name__ == "__main__":
     t1.postorder()
     t1.preorder()
     print(t1.height())
+    
