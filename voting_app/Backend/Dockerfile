@@ -7,14 +7,20 @@ WORKDIR /app
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Install dependencies
+# Install dependencies (including express)
 RUN npm install
+
+# Ensure express is installed (optional)
+RUN npm install express
 
 # Copy the rest of the backend source code
 COPY . .
 
-# Expose necessary ports (adjust if needed)
+# Set correct permissions (optional)
+RUN chmod -R 777 /app
+
+# Expose necessary ports
 EXPOSE 5000
 
-# Start the backend server
-CMD ["npm", "start"]
+# Compile contracts at runtime instead of during build
+CMD rm -rf cache artifacts && npx hardhat compile && npm start

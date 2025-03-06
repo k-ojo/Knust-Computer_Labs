@@ -9,5 +9,9 @@
     "dotenv": "^16.4.7",
     "ethers": "^6.13.5",
     "hardhat-ethers": "^1.0.1"
-  }
+  },
+  "scripts": {
+  "start": "node scripts/deploy.js"
+}
+
 }
