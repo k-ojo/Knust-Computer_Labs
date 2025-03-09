@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <limits.h>
+#include <string.h>
+#include <stdlib.h>
 
 #define ERRNO INT_MAX
 
@@ -37,11 +39,17 @@ int inverse_mod(int x, int y){
 
     if (R != 1)
         return ERRNO;
-    return (T[1] % y);    
+    T[1] %= y;
+    return (T[1] < 0) ? T[1] + y : T[1];    
 }
 
-int main(){
+int main(int ac, char *av[]){
 
-    printf("%d\n", inverse_mod(4, 13));
+    int a, b;
+    if (ac >= 2){
+        b = atoi(av[1]);
+        a = atoi(av[2]);
+    }
+    printf("%d\n", inverse_mod(b, a));
     return (0);
 }
