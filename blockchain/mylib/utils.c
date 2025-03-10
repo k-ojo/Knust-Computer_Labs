@@ -1,5 +1,6 @@
 #include "gavivisha256.h"
 
+
 uint32_t primes[PRIMES_SIZE] = {
     2, 3, 5, 7, 11, 13, 17, 19, 23, 29,
     31, 37, 41, 43, 47, 53, 59, 61, 67, 71,
@@ -41,10 +42,27 @@ uint32_t rotr(uint32_t value, uint8_t shift)
 
 uint32_t *init_state_variables()
 {
-    uint32_t *S = malloc(sizeof(uint32_t) * 8);
+    uint32_t *S = malloc(sizeof(uint32_t) * S_SIZE);
     for (int i = 0; i < 8; i++){
         S[i] = getWord(sqrt(primes[i]));
     }
+}
+
+uint32_t *init_w(uint8_t *block){
+    uint32_t *W = malloc(sizeof(uint32_t) * W_SIZE);
+    memset(W, 0x0, sizeof(uint32_t) * W_SIZE);
+    uint8_t len = I_SIZE * 4, bbs_len = BLOCK_SIZE / I_SIZE;
+    int i, w;
+
+    for (w = 0, i = 0; i < BLOCK_SIZE / I_SIZE; i++, w += 4){
+        for (int j = 3; j >= 0; j--){
+            W[i] = W[i] | ((uint32_t)block[w + (3 -j)] << (8 * j)); //take 32 bits and store at W[i]
+        }
+    }
+
+    for (int t = bbs_len; t < W_SIZE; t++)
+        W[t] = sigma1(W[t-2]) + W[t - 7] + sigma0(W[t - 15]) + W[t - 16];
+    return (W);
 }
 
 uint32_t *init_k(){
@@ -53,3 +71,4 @@ uint32_t *init_k(){
         K[i] = getWord(cbrt(primes[i]));
     }
 }
+

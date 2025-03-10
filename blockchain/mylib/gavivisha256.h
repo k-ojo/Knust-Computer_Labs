@@ -10,6 +10,10 @@
 
 #define K_SIZE 64
 #define PRIMES_SIZE 100
+#define BLOCK_SIZE 64
+#define W_SIZE 64
+#define S_SIZE 8
+#define I_SIZE 4
 
 //gavivisha256.c
 uint32_t sigma0(uint32_t w);
@@ -17,11 +21,13 @@ uint32_t sigma1(uint32_t w);
 uint8_t *pad(uint8_t *msg, size_t *l);
 uint8_t **create_blocks(uint8_t *padded_msg, size_t len);
 
+//utils.c
 void print_bin(uint32_t hexa);
 uint32_t getWord(double i_number);
 uint32_t rotr(uint32_t value, uint8_t shift);
 uint32_t *init_state_variables();
 uint32_t *init_k();
+uint32_t *init_w(uint8_t *block);
 
 extern uint32_t primes[PRIMES_SIZE];
 
