@@ -11,14 +11,14 @@ int main()
 {
 
     
-    size_t len;
+    /*size_t len;
     uint8_t *buf = pad("abc", &len);
     int i = 0;
 
     /*for (int j = 0; j < len; j++){
         printf("%02x ", buf[j]);
             if ((j + 1) % 16 == 0) printf("\n");
-    }*/
+    }
 
     //print_buf(buf, len);
     print_bin(buf[0]);
@@ -61,6 +61,10 @@ int main()
     printf("e: %f %x\n", e, ex = getWord(cbrt(primes[34])));
     print_bin(ex);
   */
+
+    uint32_t A = 0b11, B = 0b101, C = 0b1001;
+
+    print_bin(M_(A, B, C));
     return (0);
 
 }
