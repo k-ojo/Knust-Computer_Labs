@@ -43,7 +43,7 @@ int inverse_mod(int x, int y){
     return (T[1] < 0) ? T[1] + y : T[1];    
 }
 
-int main(int ac, char *av[]){
+int main(int ac, char **av){
 
     int a, b;
     if (ac >= 2){

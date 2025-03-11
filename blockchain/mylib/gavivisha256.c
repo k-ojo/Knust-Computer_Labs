@@ -44,7 +44,7 @@ void free_blocks(uint8_t **blocks, size_t len){
     free (blocks);
 }
 void free_H(uint32_t **H, size_t len){
-    for (int i = 0; i < len / BLOCK_SIZE; i++){
+    for (int i = 0; i < len / BLOCK_SIZE + 1; i++){
         free(H[i]);
     }
     free(H);

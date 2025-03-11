@@ -9,7 +9,6 @@ void print_buf(uint8_t *buf, size_t size){
 
 int main()
 {
-
     
     /*size_t len;
     uint8_t *buf = pad("abc", &len);
