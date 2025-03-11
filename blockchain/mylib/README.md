@@ -1,10 +1,4 @@
-Here is the complete README.md file for your gavivisha256 project:
-
-⸻
-
-
-
-# Gavivisha256  
+# Gavivish256  
 
 Gavivisha256 is a custom cryptographic hash function inspired by SHA-256, implemented in C. It processes arbitrary input and produces a fixed 256-bit (32-byte) hash, ensuring data integrity and security. This project serves as an educational implementation of cryptographic hashing principles, including bitwise operations, message padding, and compression functions.  
 
