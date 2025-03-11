@@ -55,6 +55,7 @@ void gavivisha256(uint8_t *msg, uint32_t *digest){
     uint32_t **H, *W, *S, *K, T_1, T_2;
     uint8_t *padded = pad(msg, &len);
     uint8_t **blocks = create_blocks(padded, len);
+    int i = 0, x = 1;
 
     S = init_s();
     K = init_k();
@@ -63,18 +64,18 @@ void gavivisha256(uint8_t *msg, uint32_t *digest){
         exit(99);
     //s_const e = e, f = f, g = g, h = h;
 
-    H = (uint32_t **)malloc(sizeof(uint32_t *) * (len / BLOCK_SIZE));
+    H = (uint32_t **)malloc(sizeof(uint32_t *) * (len / BLOCK_SIZE) + 1);
+    H[0] = (uint32_t *)malloc(sizeof(uint32_t) * S_SIZE);
 
-    int i = 0;
+    for (int u = 0; u < S_SIZE; u++)
+        H[0][u] = S[u];
+    
     while (i < len / BLOCK_SIZE){
+            H[x] = (uint32_t *)malloc(sizeof(uint32_t) * S_SIZE);
 
-        H[i] = (uint32_t *)malloc(sizeof(uint32_t) * S_SIZE);
         W = init_w(blocks[i]);
-
-        if (i == 0)
-            H[0] == S;
-
-        for (int j = 0; j < W_SIZE; j++){
+        int j = 0;
+        for (; j < W_SIZE; j++){
 
             T_1 = Z_1(S[e]) + C_(S[e], S[f], S[g]) + S[h] + K[j] + W[j];
             T_2 = Z_0(S[a]) + M_(S[a], S[b], S[c]);
@@ -85,20 +86,22 @@ void gavivisha256(uint8_t *msg, uint32_t *digest){
             S[a] = T_1 + T_2;
             S[e] += T_1; 
         }
-        
+
         for (int w = S_SIZE - 1; w >= 0; w--){
             if ( i != 0)
-                H[i][w] = H[i - 1][w] + S[w];
+                H[x][w] = H[i][w] + S[w];
             else
-                H[i][w] = H[0][w] + S[w];
+                H[x][w] = H[i][w] + S[w];
         }
 
         free(W);
+
         i++;
+        x++;
     }
 
     for (int j = 0; j < 8; j++){
-        digest[j] = H[i - 1][j];
+        digest[j] = H[i][j];
     }
 
     free_blocks(blocks, len);

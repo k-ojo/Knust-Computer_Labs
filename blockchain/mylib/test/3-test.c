@@ -26,6 +26,6 @@ int main(){
 
     //print_W(W);
     print_s(S);
-    print_k(K);
+    //print_k(K);
 
 }

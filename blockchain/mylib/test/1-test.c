@@ -68,8 +68,11 @@ int main()
     uint32_t digest[256 / 8];
     gavivisha256("abc", digest);
     for (int i = 0; i < 8; i++){
-        print_bin(digest[i]);
+        printf("%x", digest[i]);
     }
+    printf("\n");
+
+
     return (0);
     
 }

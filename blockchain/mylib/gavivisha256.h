@@ -14,16 +14,17 @@
 #define W_SIZE 64
 #define S_SIZE 8
 #define I_SIZE 4
+#define B_SIZE 32
 
 typedef enum{
     a = 0,
     b = 1,
-    c = 3,
-    d = 4,
-    e = 5,
-    f = 6,
-    g = 7,
-    h = 8
+    c = 2,
+    d = 3,
+    e = 4,
+    f = 5,
+    g = 6,
+    h = 7
 }s_const;
 
 //gavivisha256.c
