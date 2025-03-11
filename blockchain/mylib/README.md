@@ -12,10 +12,10 @@ Gavivisha256 is a custom cryptographic hash function inspired by SHA-256, implem
 
 ## Compilation  
 
-You can compile `gavivisha256` using GCC:  
+You can compile `gavivihash` using GCC:  
 
 ```sh
-gcc -o gavivisha256 gavivisha256.c
+gcc -o gavivisha256 *.c
 
 This produces an executable named gavivisha256.
 
