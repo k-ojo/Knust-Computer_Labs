@@ -29,6 +29,8 @@ typedef enum{
 //gavivisha256.c
 uint8_t *pad(uint8_t *msg, size_t *l);
 uint8_t **create_blocks(uint8_t *padded_msg, size_t len);
+void free_blocks(uint8_t **blocks, size_t len);
+void gavivisha256(uint8_t *msg, uint32_t *digest);
 
 //utils.c
 void print_bin(uint32_t hexa);
@@ -45,6 +47,9 @@ uint32_t C_(uint32_t A, uint32_t B, uint32_t C);
 uint32_t M_(uint32_t A, uint32_t B, uint32_t C);
 uint32_t O_0(uint32_t w);
 uint32_t O_1(uint32_t w);
+
+//2-test.c
+void print_W(uint32_t *W);
 
 extern uint32_t primes[PRIMES_SIZE];
 

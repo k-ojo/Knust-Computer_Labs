@@ -1,4 +1,4 @@
-#include "gavivisha256.h"
+#include "../gavivisha256.h"
 
 void print_buf(uint8_t *buf, size_t size){
     for (int j = 0; j < size; j++){
@@ -62,9 +62,14 @@ int main()
     print_bin(ex);
   */
 
-    uint32_t A = 0b11, B = 0b101, C = 0b1001;
+    /*uint32_t A = 0b11, B = 0b101, C = 0b1001;
 
-    print_bin(M_(A, B, C));
+    print_bin(M_(A, B, C));*/
+    uint32_t digest[256 / 8];
+    gavivisha256("abc", digest);
+    for (int i = 0; i < 8; i++){
+        print_bin(digest[i]);
+    }
     return (0);
-
+    
 }

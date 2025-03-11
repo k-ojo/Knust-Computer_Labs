@@ -21,20 +21,6 @@ uint8_t *pad(uint8_t *msg, size_t *l)
     return (padded_msg);
 }
 
-uint32_t O_0(uint32_t w){
-    uint32_t R_7, R_18, S_3;
-    R_7 = rotr(w, 7), R_18 = rotr(w, 18);
-    S_3 = w >> 3;
-    return (R_7 ^ R_18 ^ S_3);
-};
-
-uint32_t O_1(uint32_t w){
-    uint32_t R_17, R_19, S_10;
-    R_17 = rotr(w, 17), R_19 = rotr(w, 19);
-    S_10 = w >> 10;
-    return (R_17 ^ R_19 ^ S_10);
-};
-
 uint8_t **create_blocks(uint8_t *padded_msg, size_t len)
 {
     size_t n = len / BLOCK_SIZE;
@@ -42,7 +28,9 @@ uint8_t **create_blocks(uint8_t *padded_msg, size_t len)
 
     for (int i = 0; i < n; i++)
     {
-        blocks[i] = malloc(sizeof(uint8_t) * BLOCK_SIZE);
+        blocks[i] = (uint8_t *)malloc(sizeof(uint8_t) * BLOCK_SIZE);
+        if (blocks == NULL)
+            exit(99);
         memcpy(blocks[i], padded_msg + (i * BLOCK_SIZE), BLOCK_SIZE);
     }
 
@@ -50,13 +38,29 @@ uint8_t **create_blocks(uint8_t *padded_msg, size_t len)
     return (blocks);
 }
 
-void gavivisha256(uint8_t *msg, uint64_t *digest){
+void free_blocks(uint8_t **blocks, size_t len){
+    for (int i = 0; i < len / BLOCK_SIZE; i++)
+        free(blocks[i]);
+    free (blocks);
+}
+void free_H(uint32_t **H, size_t len){
+    for (int i = 0; i < len / BLOCK_SIZE; i++){
+        free(H[i]);
+    }
+    free(H);
+}
+
+void gavivisha256(uint8_t *msg, uint32_t *digest){
     size_t len;
     uint32_t **H, *W, *S, *K, T_1, T_2;
-    uint8_t **blocks = create_blocks(pad(msg, &len), len);
+    uint8_t *padded = pad(msg, &len);
+    uint8_t **blocks = create_blocks(padded, len);
+
     S = init_s();
-    H[0] = S;
     K = init_k();
+
+    if (!S || !K)
+        exit(99);
     //s_const e = e, f = f, g = g, h = h;
 
     H = (uint32_t **)malloc(sizeof(uint32_t *) * (len / BLOCK_SIZE));
@@ -64,25 +68,41 @@ void gavivisha256(uint8_t *msg, uint64_t *digest){
     int i = 0;
     while (i < len / BLOCK_SIZE){
 
-        H[i] = malloc(sizeof(uint32_t) * S_SIZE);
+        H[i] = (uint32_t *)malloc(sizeof(uint32_t) * S_SIZE);
         W = init_w(blocks[i]);
+
+        if (i == 0)
+            H[0] == S;
 
         for (int j = 0; j < W_SIZE; j++){
 
             T_1 = Z_1(S[e]) + C_(S[e], S[f], S[g]) + S[h] + K[j] + W[j];
-            T_2 = Z_0(S[a]) + M_(S[e], S[b], S[c]);
+            T_2 = Z_0(S[a]) + M_(S[a], S[b], S[c]);
 
-            for (int w = S_SIZE - 1; W > 0; w--)
+            for (int w = S_SIZE - 1; w > 0; w--)
                 S[w] = S[w - 1];
+
             S[a] = T_1 + T_2;
-            S[e] += T_1;
+            S[e] += T_1; 
+        }
+        
+        for (int w = S_SIZE - 1; w >= 0; w--){
+            if ( i != 0)
+                H[i][w] = H[i - 1][w] + S[w];
+            else
+                H[i][w] = H[0][w] + S[w];
         }
 
-
-        for (int w = S_SIZE - 1; W >= 0; w--){
-            H[i][w] = H[i - 1][w] + S[i];
-        }
-
+        free(W);
+        i++;
     }
-    memcpy(H[i], S, 256/2);
+
+    for (int j = 0; j < 8; j++){
+        digest[j] = H[i - 1][j];
+    }
+
+    free_blocks(blocks, len);
+    free_H(H, len);
+    free(S);
+    free(K);
 }

@@ -34,18 +34,16 @@ uint32_t getWord(double i_number)
     return (uint32_t)(frac * (1ULL << 32));
 }
 
-uint32_t rotr(uint32_t value, uint8_t shift)
-{
-    shift %= (sizeof(value) * CHAR_BIT);
-    return (value >> shift) | (value << (sizeof(value) * CHAR_BIT) - shift);
-}
 
 uint32_t *init_s()
 {
-    uint32_t *S = malloc(sizeof(uint32_t) * S_SIZE);
-    for (int i = 0; i < 8; i++){
+    uint32_t *S = (uint32_t *)malloc(sizeof(uint32_t) * S_SIZE);
+    if (!S)
+        exit(99);
+    for (int i = 0; i < S_SIZE; i++){
         S[i] = getWord(sqrt(primes[i]));
     }
+    return (S);
 }
 
 uint32_t *init_w(uint8_t *block){
@@ -70,19 +68,5 @@ uint32_t *init_k(){
     for (int i = 0; i < K_SIZE; i++){
         K[i] = getWord(cbrt(primes[i]));
     }
-}
-
-uint32_t Z_0(uint32_t x){
-    return (rotr(x, 2) ^ rotr(x, 13) ^ rotr(x, 22));
-}
-uint32_t Z_1(uint32_t x){
-    return (rotr(x, 6) ^ rotr(x, 11) ^ rotr(x, 25));
-}
-
-uint32_t C_(uint32_t A, uint32_t B, uint32_t C){
-    return (((~A) & C) | (B & C) | (A & B));
-}
-
-uint32_t M_(uint32_t A, uint32_t B, uint32_t C){
-    return ((A & C) | (B & C) | (A & B));
+    return (K);
 }
