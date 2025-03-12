@@ -9,9 +9,8 @@ int main(int ac, char *av[])
     gavivisha256(av[1], digest);
     printf("Hash Value:\t");
     for (int i = 0; i < 8; i++)
-    {
         printf("%x", digest[i]);
-    }
+
     printf("\n");
 
     return (0);
