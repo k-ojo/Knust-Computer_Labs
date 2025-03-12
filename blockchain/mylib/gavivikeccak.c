@@ -13,6 +13,14 @@ void init(uint8_t _b){
     }
 }
 
+/**
+ * c_blocks- creates blocks
+ * @blocks: blocks of n size container
+ * @size: size of ouput, 224, 256, etc ...
+ * @buf: message buffer
+ * @m_len: message length
+ * Return: Nothing
+ */
 void c_blocks(uint8_t **blocks, uint8_t *buf, o_size size, size_t m_len){
     int i = 0, b_size = r[size] / 8, n_blocks = m_len / b_size;
     for (int j = 0; j < b_size; j++){
