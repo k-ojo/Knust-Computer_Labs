@@ -1,4 +1,4 @@
-#include "../gavivisha256.h"
+#include "../src/gavivisha256.h"
 
 int main(){
     uint32_t input[] = {0x00FF00FF, 0x0000FFFF, 0xFFFF0000};

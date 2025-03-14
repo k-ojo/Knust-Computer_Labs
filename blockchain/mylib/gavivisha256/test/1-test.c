@@ -1,4 +1,4 @@
-#include "../gavivisha256.h"
+#include "../src/gavivisha256.h"
 
 void print_buf(uint8_t *buf, size_t size){
     for (int j = 0; j < size; j++){

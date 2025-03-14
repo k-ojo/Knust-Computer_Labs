@@ -1,4 +1,4 @@
-# include "../gavivisha256.h"
+# include "../src/gavivisha256.h"
 
 void print_s(uint32_t *S){
     for (int w = 0; w < 8; w++){

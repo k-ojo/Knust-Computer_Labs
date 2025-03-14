@@ -14,9 +14,7 @@ uint8_t *pad(uint8_t *msg, size_t *l)
     bit_len = (uint64_t)len * 8;
 
     for (int i = 0; i < 8; i++)
-    {
         padded_msg[tl - 8 + i] = (uint8_t)((bit_len >> (BLOCK_SIZE - 8 - (i * 8))) & 0xFF);
-    }
     *l = tl;
     return (padded_msg);
 }
@@ -26,7 +24,7 @@ uint8_t **create_blocks(uint8_t *padded_msg, size_t len)
     size_t n = len / BLOCK_SIZE;
     uint8_t **blocks = (uint8_t **)malloc((sizeof(uint8_t *) * n));
 
-    for (int i = 0; i < n; i++)
+    for (size_t i = 0; i < n; i++)
     {
         blocks[i] = (uint8_t *)malloc(sizeof(uint8_t) * BLOCK_SIZE);
         if (blocks == NULL)
@@ -39,12 +37,12 @@ uint8_t **create_blocks(uint8_t *padded_msg, size_t len)
 }
 
 void free_blocks(uint8_t **blocks, size_t len){
-    for (int i = 0; i < len / BLOCK_SIZE; i++)
+    for (size_t i = 0; i < len / BLOCK_SIZE; i++)
         free(blocks[i]);
     free (blocks);
 }
 void free_H(uint32_t **H, size_t len){
-    for (int i = 0; i < len / BLOCK_SIZE + 1; i++){
+    for (size_t i = 0; i < len / BLOCK_SIZE + 1; i++){
         free(H[i]);
     }
     free(H);
@@ -55,7 +53,7 @@ void gavivisha256(uint8_t *msg, uint32_t *digest){
     uint32_t **H, *W, *S, *K, T_1, T_2;
     uint8_t *padded = pad(msg, &len);
     uint8_t **blocks = create_blocks(padded, len);
-    int i = 0, x = 1;
+    size_t i = 0, x = 1;
 
     S = init_s();
     K = init_k();

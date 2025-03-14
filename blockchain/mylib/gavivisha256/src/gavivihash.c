@@ -6,7 +6,7 @@ int main(int ac, char *av[])
         exit(99);
     uint32_t digest[256 / 8];
 
-    gavivisha256(av[1], digest);
+    gavivisha256((uint8_t *)av[1], digest);
     printf("Hash Value:\t");
     for (int i = 0; i < 8; i++)
         printf("%x", digest[i]);

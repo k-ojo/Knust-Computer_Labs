@@ -49,7 +49,7 @@ uint32_t *init_s()
 uint32_t *init_w(uint8_t *block){
     uint32_t *W = malloc(sizeof(uint32_t) * W_SIZE);
     memset(W, 0x0, sizeof(uint32_t) * W_SIZE);
-    uint8_t len = I_SIZE * 4, bbs_len = BLOCK_SIZE / I_SIZE;
+    uint8_t bbs_len = BLOCK_SIZE / I_SIZE;
     int i, w;
 
     for (w = 0, i = 0; i < BLOCK_SIZE / I_SIZE; i++, w += 4){
