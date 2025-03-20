@@ -1,11 +1,11 @@
 CC := gcc
 CFLAGS := -Wall -Wextra -g
-LIBS := -lm -lcrypto
+LIBS := -lm
 
 SRC_DIR := src
 BIN_DIR := bin
 BUILD_DIR := build
-TARGET := $(BIN_DIR)/merkle # Define the final executable name
+TARGET := $(BIN_DIR)/khash# Define the final executable name
 
 # Ensure directories exist
 $(BUILD_DIR):
