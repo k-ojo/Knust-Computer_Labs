@@ -19,6 +19,11 @@ typedef struct merkleNode
     struct merkleNode *left, *right;
 } merkleNode;
 
+typedef struct {
+    uint8_t hash[SHA256_DIGEST_LENGTH];
+    int is_left;
+} MerkleProofStep;
+
 //utils.c
 int load_voter_data(const char *filename, uint8_t voter_hashes[][SHA256_DIGEST_LENGTH]);
 void print_hash(uint8_t *hash);
@@ -31,5 +36,11 @@ void free_merkle_tree(merkleNode *node);
 int load_voter_data(const char *filename, uint8_t voter_hashes[][SHA256_DIGEST_LENGTH]);
 merkleNode *build_merkle_tree(uint8_t voter_hashes[][SHA256_DIGEST_LENGTH], int num_voters);
 merkleNode *create_node(uint8_t *hash, merkleNode *left, merkleNode *right);
+
+//queries.c
+int generate_merkle_proof(merkleNode *root, const unsigned char *target_hash, MerkleProofStep *proof);
+int hash_equals(const unsigned char *hash1, const unsigned char *hash2);
+int generate_merkle_proof(merkleNode *root, const unsigned char *target_hash, MerkleProofStep *proof);
+void print_merkle_proof(MerkleProofStep *proof, int depth);
 
 #endif

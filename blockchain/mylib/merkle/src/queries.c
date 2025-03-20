@@ -1,10 +1,5 @@
 #include "gavivimerkle.h"
 
-typedef struct {
-    uint8_t hash[SHA256_DIGEST_LENGTH];
-    int is_left;
-} MerkleProofStep;
-
 int hash_equals(const unsigned char *hash1, const unsigned char *hash2) {
     return memcmp(hash1, hash2, SHA256_DIGEST_LENGTH) == 0;
 }
