@@ -5,7 +5,7 @@ LIBS := -lm -lcrypto
 SRC_DIR := sources
 BIN_DIR := bin
 BUILD_DIR := build
-TARGET := $(BIN_DIR)/khash  # Define the final executable name
+TARGET := $(BIN_DIR)/app  # Define the final executable name
 
 # Ensure directories exist
 $(BUILD_DIR):
@@ -35,7 +35,7 @@ $(TARGET): $(OBJS) | $(BIN_DIR)
 dir: $(BUILD_DIR) $(BIN_DIR)
 
 run: 
-	"./$(TARGET)"
+	./$(TARGET)
 
 .PHONY: dir clean all
 

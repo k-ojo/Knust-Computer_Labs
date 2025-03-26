@@ -12,7 +12,7 @@
 #include "dbutils.h"
 #include "password.h"
 
-
+#define PWD_TRY_TIMES 4
 
 #ifdef _WIN32
     #include <conio.h>
@@ -21,7 +21,8 @@
     #include <unistd.h>
 #endif
 
-uint8_t *get_pwd(uint32_t *size);
+void start_up();
+
 typedef enum{
     UNAME = 0,
     FNAME = 1,
