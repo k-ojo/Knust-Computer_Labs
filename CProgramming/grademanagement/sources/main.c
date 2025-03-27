@@ -71,6 +71,6 @@ void start_up()
 
 int main(void)
 {
-    start_up();
+    free_user(sign_up());
     return (0);
 }

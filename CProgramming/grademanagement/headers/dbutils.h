@@ -15,6 +15,10 @@ char *lookup(char *str, const char *path);
 user *init();
 void free_user(user *u);
 void save_user_to_db(user *u, const char *path, char delim);
+
+//sign_up.c
 user *sign_in();
+user *sign_up();
+
 
 #endif
