@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string.h>
-#include "../includes/queries.h"
+#include <sqlite3.h>
+#include <stdbool.h>
+#include "queries.h"
 
 void insert_node(sqlite3 *db, const char *node_hash, const char *left_child, const char *right_child) {
     sqlite3_stmt *stmt;
@@ -23,7 +25,7 @@ void insert_node(sqlite3 *db, const char *node_hash, const char *left_child, con
 
     sqlite3_finalize(stmt);
 
-    // ✅ Update parent for child nodes!
+    // Update parent for child nodes if they exist
     if (strlen(left_child) > 0) update_parent_hash(db, left_child, node_hash);
     if (strlen(right_child) > 0) update_parent_hash(db, right_child, node_hash);
 }
@@ -54,17 +56,17 @@ void create_merkle_table(sqlite3 *db) {
                       "node_hash TEXT PRIMARY KEY, "
                       "left_child TEXT, "
                       "right_child TEXT, "
-                      "parent_hash TEXT);";
+                      "parent_hash TEXT, "
+                      "is_root INTEGER DEFAULT 0);";  // Add root flag
 
     char *err_msg = 0;
     if (sqlite3_exec(db, sql, 0, 0, &err_msg) != SQLITE_OK) {
-        printf("❌ ERROR Creating Table: %s\n", err_msg);
+        fprintf(stderr, "❌ ERROR Creating Table: %s\n", err_msg);
         sqlite3_free(err_msg);
     } else {
         printf("✅ Merkle Tree Table Ready\n");
     }
 }
-
 
 bool fetch_parent_and_sibling(sqlite3 *db, const char *node_hash, char *parent_hash, char *sibling_hash) {
     sqlite3_stmt *stmt;
@@ -78,27 +80,40 @@ bool fetch_parent_and_sibling(sqlite3 *db, const char *node_hash, char *parent_h
     sqlite3_bind_text(stmt, 1, node_hash, -1, SQLITE_STATIC);
     sqlite3_bind_text(stmt, 2, node_hash, -1, SQLITE_STATIC);
 
+    bool found = false;
     if (sqlite3_step(stmt) == SQLITE_ROW) {
-        // Get parent hash
         const char *parent = (const char *)sqlite3_column_text(stmt, 0);
-        if (parent) strcpy(parent_hash, parent);
-
-        // Determine sibling
         const char *left = (const char *)sqlite3_column_text(stmt, 1);
         const char *right = (const char *)sqlite3_column_text(stmt, 2);
-        
-        if (left && strcmp(left, node_hash) == 0) {
-            // Node is the left child, sibling is the right child
-            if (right) strcpy(sibling_hash, right);
-        } else if (right && strcmp(right, node_hash) == 0) {
-            // Node is the right child, sibling is the left child
-            if (left) strcpy(sibling_hash, left);
+
+        if (parent) {
+            strncpy(parent_hash, parent, 64);
+            parent_hash[64] = '\0'; // Ensure null-termination
+        } else {
+            parent_hash[0] = '\0'; // No parent case
         }
 
-        sqlite3_finalize(stmt);
-        return true;
+        sibling_hash[0] = '\0';  // Ensure sibling is always initialized
+
+        if (left && strcmp(left, node_hash) == 0) {
+            if (right) {
+                strncpy(sibling_hash, right, 64);
+                sibling_hash[64] = '\0';
+            }
+        } else if (right && strcmp(right, node_hash) == 0) {
+            if (left) {
+                strncpy(sibling_hash, left, 64);
+                sibling_hash[64] = '\0';
+            }
+        }
+
+        if (sibling_hash[0] == '\0') {
+            fprintf(stderr, "❌ Warning: Sibling is empty at level with parent %s\n", parent_hash);
+        }
+
+        found = true;
     }
 
     sqlite3_finalize(stmt);
-    return false;
+    return found;
 }
