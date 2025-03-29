@@ -3,6 +3,8 @@
 #include "prints.h"
 #include "dbutils.h"
 
+const char *I_PATH = "instructor.db";
+
 void start_up()
 {
     char *option = NULL;
@@ -71,6 +73,6 @@ void start_up()
 
 int main(void)
 {
-    free_user(sign_up());
+    start_up();
     return (0);
 }

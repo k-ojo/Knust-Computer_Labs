@@ -33,7 +33,7 @@ user *init(){
     strcpy(u->lastname, "NULL");
     u->username = (char *)malloc(sizeof(char) * 50);
     strcpy(u->username, "NULL");
-    u->hashed_pwd = (uint8_t *)malloc(sizeof(uint8_t) * EVP_MAX_MD_SIZE);
+    u->hashed_pwd = (uint8_t *)malloc(sizeof(uint8_t) * SHA256_DIGEST_LENGTH);
     memcpy(u->hashed_pwd, "NULL", 4);
     return u;
 }
@@ -50,13 +50,13 @@ void free_user(user *u){
 
 void save_user_to_db(user *u, const char *path, char delim){
 
-    char *hex = malloc(2 * EVP_MAX_BLOCK_LENGTH + 1);
+    char *hex = malloc(2 * SHA256_DIGEST_LENGTH + 1);
     if (!hex){
         perror("Memory Alloc failed");
         return;
     }
 
-    bytes_to_hex(u->hashed_pwd, EVP_MAX_BLOCK_LENGTH, hex);
+    bytes_to_hex(u->hashed_pwd, SHA256_DIGEST_LENGTH, hex);
     printf("%s\n", path);
 
     FILE *f = fopen(path, "a");

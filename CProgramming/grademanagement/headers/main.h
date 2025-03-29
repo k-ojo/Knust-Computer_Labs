@@ -13,6 +13,7 @@
 #include "password.h"
 
 #define PWD_TRY_TIMES 4
+#define SHA256_DIGEST_LENGTH 32
 
 #ifdef _WIN32
     #include <conio.h>
@@ -22,7 +23,6 @@
 #endif
 
 #define NAME_SIZE 50
-void start_up();
 
 typedef enum{
     UNAME = 0,
@@ -37,5 +37,9 @@ typedef enum{
     WHITE = 30,
     RED = 31
 }color;
+
+extern const char *I_PATH;
+void start_up();
+
 
 #endif

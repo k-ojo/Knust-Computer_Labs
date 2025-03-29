@@ -2,7 +2,7 @@
 
 char *parse_attribute(char *buf, user *u, attr att, char delim){
     size_t n = strlen(buf);
-    char hpwd[EVP_MAX_BLOCK_LENGTH * 2];
+    char *hpwd = (char *)malloc(sizeof(char) * SHA256_DIGEST_LENGTH * 2);
 
     for(size_t i = 0; i < n; i++){
         if (buf[i] == delim || buf[i] == '\n'){
@@ -28,9 +28,11 @@ char *parse_attribute(char *buf, user *u, attr att, char delim){
                 printf("Invalid attribute\n");
                 break;
             }
+            free(hpwd);
             return (buf + i + 1);
         }
     }
+    free(hpwd);
     return NULL;
 
 }

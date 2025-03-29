@@ -70,7 +70,7 @@ user *sign_in()
             len--;
         }
 
-        u = parse_user(lookup(buf, "instructor.db"), '|');
+        u = parse_user(lookup(buf,I_PATH), '|');
         if (u)
         {
 
@@ -143,7 +143,7 @@ user *sign_in()
 user *sign_up(){
     char *opt, *buf = NULL;
     bool valid = true;
-    uint8_t *hashed_pwd[2];
+    uint8_t *hashed_pwd[2] = {0};
     user *u, *u1;
     int count = 0;
 
@@ -156,8 +156,10 @@ user *sign_up(){
     {
         clearConsole();
         print_header("CREATE ACCOUNT");
+        if (buf)
+            free(buf);
         buf = get_detail("New Username", GREEN);
-        u1 = parse_user(lookup(buf, "instructor.db"), '|');
+        u1 = parse_user(lookup(buf,I_PATH), '|');
 
         if (!u1)
         {
@@ -170,18 +172,19 @@ user *sign_up(){
                 printf("Password doesn't match! %d attempt(s) more available\n", PWD_TRY_TIMES - count);
 
             hashed_pwd[0] = enter_pwd();
-            memcpy(u->hashed_pwd,  hashed_pwd[0], strlen((char *)hashed_pwd[0]));
+            memcpy(u->hashed_pwd,  hashed_pwd[0], SHA256_DIGEST_LENGTH);
             free(hashed_pwd[0]);
+            hashed_pwd[0] = NULL;
 
             clearConsole();
             print_header("CREATE ACCOUNT");
             printf("\t\t\033[1;32mConfirm Password\033[0m\n");
             hashed_pwd[1] = enter_pwd();
 
-            if (memcmp(hashed_pwd[1], u->hashed_pwd, strlen((char *)hashed_pwd[1])) == 0)
+            if (memcmp(hashed_pwd[1], u->hashed_pwd, SHA256_DIGEST_LENGTH) == 0)
             {
                 clearConsole();
-                save_user_to_db(u, "instructor.db", '|');
+                save_user_to_db(u,I_PATH, '|');
                 printf("Account Creation Success\n");
                 free(buf);
                 free(hashed_pwd[1]);
@@ -201,9 +204,11 @@ user *sign_up(){
                 }
 
                 count++;
-                free(hashed_pwd[1]);
-                if (u->hashed_pwd)
-                    free(u->hashed_pwd);
+                
+                if (hashed_pwd[1]){
+                    free(hashed_pwd[1]);
+                    hashed_pwd[1] = NULL;
+                }
                 goto here;
             }
         }
@@ -216,12 +221,13 @@ user *sign_up(){
                 free(buf);
                 free_user(u1);
                 free_user(u);
+                free(opt);
                 exit(EXIT_FAILURE);
             }
-
-            if (buf)
-                free(buf);
             free_user(u1);
+            u1 = NULL;
+            free(opt);
+            opt = NULL;
             valid = false;
         }
     } while (valid == false);

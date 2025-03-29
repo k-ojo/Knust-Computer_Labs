@@ -45,7 +45,7 @@ uint8_t *get_pwd(uint32_t *len){
     char *buf = NULL;
     size_t size = 15;
 
-    uint8_t *hashed_pwd = (uint8_t *)malloc(sizeof(uint8_t) * EVP_MAX_MD_SIZE);
+    uint8_t *hashed_pwd = (uint8_t *)malloc(sizeof(uint8_t) * SHA256_DIGEST_LENGTH);
 
     buf = (char *)malloc(sizeof(char) * size);
 
