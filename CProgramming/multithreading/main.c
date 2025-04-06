@@ -29,6 +29,7 @@ int main(){
 
     int policy;
     struct sched_param param;
+    FILE *fd = stdout;
 
     pthread_attr_t attr;
     pthread_attr_init(&attr);
