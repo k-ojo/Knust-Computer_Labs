@@ -1,0 +1,33 @@
+
+        
+        
+
+
+void log_request(const char *message) {
+    FILE *log_file = fopen(LOG_FILE, "a");
+    if (log_file) {
+        time_t now = time(NULL);
+        fprintf(log_file, "[%s] %s\n", ctime(&now), message);
+        fclose(log_file);
+    }
+}
+
+void launch(void){
+    server_t *server = server_init(AF_INET, SOCK_STREAM, 0, INADDR_ANY, 8080, 10);
+
+    pthread_t t1;
+
+    int address_len = sizeof(server->address);
+    
+    while(1){
+        printf("WAITING FOR CONNECTION");
+        int *new_socket = (int *)malloc(sizeof(int));
+        *new_socket = accept(server->sockfd, (struct sockaddr *)&server->address, (socklen_t *)&address_len);
+        pthread_create(&t1, NULL, handle_client, new_socket);
+        pthread_join(t1, NULL);
+        pthread_detach(t1);
+    }
+
+    close(server->sockfd);
+    free(server);
+}
