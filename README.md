@@ -7,33 +7,6 @@ Welcome to the Computer Lab repository! This collection includes hands-on lab ex
 
 This repository is ideal for beginners to intermediate-level students learning core programming concepts and algorithmic thinking.
 
----
-
-## 📁 Directory Structure
-
-```
-computer-lab/
-│
-├── C_Programming/
-│   ├── basics/                # Hello World, variables, operators
-│   ├── control_flow/          # if-else, switch, loops
-│   ├── functions/             # Function examples and recursion
-│   ├── arrays_strings/        # Arrays, strings, and pointer basics
-│   ├── structures/            # Structures and file handling
-│   └── assignments/           # Lab assignments and solutions
-│
-└── DSA_Python/
-    ├── arrays_lists/          # Lists, tuples, array manipulations
-    ├── stacks_queues/         # Stack & Queue using lists and collections
-    ├── linked_lists/          # Singly and doubly linked lists
-    ├── trees/                 # Binary Trees, BSTs
-    ├── searching_sorting/     # Linear/binary search, sorting algorithms
-    ├── recursion/             # Recursive problem-solving
-    └── assignments/           # DSA lab problems and solutions
-```
-
----
-
 ## ✅ Objectives
 
 - Understand and apply programming fundamentals using **C**.
