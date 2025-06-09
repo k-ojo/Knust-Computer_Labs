@@ -1,0 +1,30 @@
+Objective:
+Decrypt the content of the encrypted file `encrypted_poem.txt` and recover the contents
+Instructions:
+- Work in groups to decrypt the text.
+- Submit your own decrypted version** with a short explanation of the steps and methods you used.
+- Apply classical cryptanalysis techniques or write a script to help break the cipher.
+- Try to identify the key and explain how you found it.
+
+Provided Information
+
+Directory Listing (`ls -l`)
+
+total 12
+-rw-r--r-- 1 kojo kojo   250 Jun  9 11:03 assignment.txt
+-rw-r--r-- 1 kojo kojo   289 Jun  9 11:00 encrypted_poem.txt
+
+Hint: The encryption algorithm used is the Vigenère cipher, and the key is a 4-letter English word.
+
+🧠 Reference Resources
+
+- https://youtu.be/J4aZ7vCm0jE?si=AfnOkwWIAM1rGCG0
+- https://youtu.be/21LUJPhJORM?si=vS9371X1u-vamaga
+- Vigenère Cipher Decryption Guide (YouTube): https://youtu.be/SX1vF4xQm4w?si=nkpru3Obz1j2ZUzM
+- Vigenère Cipher Wikipedia: https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher
+
+📤 Deliverables
+
+- The decrypted poem text
+- The keyword used for encryption
+- A brief explanation of your decryption process (methods, code, or tools used)
