@@ -1,5 +1,5 @@
 Objective:
-Decrypt the content of the encrypted file `encrypted_poem.txt` and recover the contents
+Decrypt the content of the encrypted file (decrypt me) and recover the contents
 Instructions:
 - Work in groups to decrypt the text.
 - Submit your own decrypted version with a short explanation of the steps and methods you used.
