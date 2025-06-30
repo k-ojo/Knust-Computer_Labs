@@ -42,7 +42,7 @@ int main(void){
 
     //3.
     /**
-     * made all the defined functions inline becase they are short calculations
+     * made all the defined functions inline because they are short calculations
      */
 
 
