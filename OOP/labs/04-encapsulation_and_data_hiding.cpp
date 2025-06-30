@@ -19,13 +19,15 @@ class YouTubeChannel{
     }
 
     void GetInfo(){
+        int i = 1;
         std::cout << "Name: " << Name << std::endl;
         std::cout << "Owner Name: " << OwnerName << std::endl;
         std::cout << "Number of subscribers: " << SubscriberCount << std::endl;
-        std::cout << "Videos: " << Name << std::endl;
+        std::cout << "Videos: " << std::endl;
 
         for (std::string videoTitle : PublishedVideoTitles){
-            std::cout << videoTitle << std::endl;
+            std::cout << i << ". " << videoTitle << std::endl;
+            i++;
         }
     }
     //3 a.
