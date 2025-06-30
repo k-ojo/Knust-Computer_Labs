@@ -21,8 +21,11 @@ int main() {
         std::cout << "You have a normal weight." << std::endl;
     } else if (bmi < 29.9) {
         std::cout << "You are overweight." << std::endl;
-    } else {
+    } else if (bmi < 40) {
         std::cout << "You are obese." << std::endl;
+    }
+    else{
+        std::cout << "You are mobidly obese" << std::endl;
     }
 
     return 0; // Exit successfully
