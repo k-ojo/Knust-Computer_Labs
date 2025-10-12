@@ -1,0 +1,81 @@
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background: #f4f4f4;
+    color: #3d3d3d;
+}
+
+header{
+    background: #3d3d3d;
+    color: white;
+    padding: 2rem 1rem;
+    text-align: center;
+}
+
+.profile-pic {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    animation: zoomIn 1s ease forwards;
+}
+
+section {
+    padding: 2rem;
+    background: white;
+    margin: 1rem auto;
+    max-width: 800px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+footer{
+    text-align: center;
+    padding: 1rem;
+    background: #333;
+    color: white;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight:500;
+    transition: all 0.3s ease;
+}
+
+a:hover{
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fadeIn ease 2s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadIn{
+    0% {opacity: 0; transform: translateY(20px);}
+    100% { opacity: 1; transform: translateY(0);}
+}
+
+@keyframes zoomIn{
+    from { transform: scale(0.8); opacity: 0;}
+    to {transform: scale(1); opacity: 1;}
+}
+
+@media (max-width: 600px){
+    header, section {
+        padding: 1rem;
+    }
+
+    .profile-pic{
+        width: 80px;
+        height: 80px;
+    }
+
+    h1{
+        font-size: 1.5rem;
+    }
+}

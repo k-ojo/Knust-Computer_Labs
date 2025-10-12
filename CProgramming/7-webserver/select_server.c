@@ -1,4 +1,4 @@
-#include "server.h"
+#include "select_server.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -56,7 +56,7 @@ int respond(server_t *server, int i){
     "Date: Mon, 27 Jul 2019 12:28:53 GMT\r\n"
     "Server: Apache/2.2.34 (Win32)\r\n"
     "Last-Modified: Fri, 4 May 2009 19:15:56 GMT\r\n"
-    "Content-Length: 29\r\n"
+    "Content-Length: 39\r\n"
     "Content-Type: text/html\r\n"
     "Connection: Closed\r\n"
     "\r\n"
@@ -94,7 +94,7 @@ char *handle_read(server_t *server, int i){
 
     buf[len] = '\0';
 
-    printf("%s", buf);
+    printf("CLIENT REQUEST\n%s", buf);
     respond(server, i);
 
     return NULL;
