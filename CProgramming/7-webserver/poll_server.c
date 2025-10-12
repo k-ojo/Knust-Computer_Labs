@@ -10,6 +10,8 @@
 
 #define MAX_FDS 5
 #define TRUE 1
+#define CONNECTIONS 10
+#define TIMEOUT 100
 
 int respond(struct pollfd *fds, int i, int *n){
 
@@ -66,14 +68,14 @@ int main(void){
     fds[n].fd = sockfd;
     n++;
 
-    if(listen(sockfd, 10) == -1){
+    if(listen(sockfd, CONNECTIONS) == -1){
         perror("listen error:");
         exit(EXIT_FAILURE);
     }
 
     while (TRUE){
 
-        if (poll(fds, MAX_FDS, 100) == 0){
+        if (poll(fds, MAX_FDS, TIMEOUT) == 0){
             perror("No data ready:");
             continue;
         }
