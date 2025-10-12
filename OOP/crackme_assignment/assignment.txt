@@ -1,0 +1,33 @@
+Crackme Password Recovery Assignment
+
+Objective:
+Find the password used in the compiled binary `crackme` and produce the output message **"Access granted"** upon running the program.
+
+Instructions
+- Work in groups to crack the password together.
+- Submit your **own work** with a brief explanation of the method you used.
+- Follow the referenced video tutorial to help guide your approach.
+
+Provided Information
+
+Directory Listing (`ls -l`)
+
+total 36
+-rw-r--r-- 1 kojo kojo   250 May 30 15:16 assignment.txt
+-rwxr-xr-x 1 kojo kojo 24624 May 30 14:17 crackme
+-rw-r--r-- 1 kojo kojo   640 May 30 15:03 test.cpp
+
+File Type of `crackme`
+
+crackme: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=6c0f495282518f0b5f3e29c4fdeec5d0e0300a36, for GNU/Linux 3.2.0, not stripped
+
+Reference
+
+- Video tutorial for cracking the binary:
+  https://youtu.be/IZzKroZNDgM?si=ruQ73yZbNaklR8On
+
+Deliverables
+
+- The discovered password
+- A brief explanation of how you cracked the password (tools used, key steps, commands)
+- Proof of running the binary and producing the **"Access granted"** output
